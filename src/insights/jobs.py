@@ -12,14 +12,13 @@ def read(path: str) -> List[Dict]:
 
 
 def get_unique_job_types(path: str) -> List[str]:
-    with open(path, mode="r") as file:
-        jobs = csv.DictReader(file, delimiter=",", quotechar='"')
-        list = []
-        for job in jobs:
-            if job["job_type"] not in list:
-                list.append(job["job_type"])
+    jobs = read(path)
+    list = []
+    for job in jobs:
+        if job["job_type"] not in list:
+            list.append(job["job_type"])
 
-        return list
+    return list
 
 
 def filter_by_job_type(jobs: List[Dict], job_type: str) -> List[Dict]:

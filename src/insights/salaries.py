@@ -1,29 +1,27 @@
 from typing import Union, List, Dict
-import csv
+from src.insights.jobs import read
 
 
 def get_max_salary(path: str) -> int:
-    with open(path, mode="r") as file:
-        jobs = csv.DictReader(file, delimiter=",", quotechar='"')
-        salary = 0
-        for job in jobs:
-            if job["max_salary"] != "" and job["max_salary"] != "invalid":
-                if int(job["max_salary"]) > salary:
-                    salary = int(job["max_salary"])
+    jobs = read(path)
+    salary = 0
+    for job in jobs:
+        if job["max_salary"] != "" and job["max_salary"] != "invalid":
+            if int(job["max_salary"]) > salary:
+                salary = int(job["max_salary"])
 
-        return salary
+    return salary
 
 
 def get_min_salary(path: str) -> int:
-    with open(path, mode="r") as file:
-        jobs = csv.DictReader(file, delimiter=",", quotechar='"')
-        salary = 1000000000000000000000000
-        for job in jobs:
-            if job["min_salary"] != "" and job["max_salary"] != "invalid":
-                if int(job["min_salary"]) < salary:
-                    salary = int(job["min_salary"])
+    jobs = read(path)
+    salary = 1000000000000000000000000
+    for job in jobs:
+        if job["min_salary"] != "" and job["max_salary"] != "invalid":
+            if int(job["min_salary"]) < salary:
+                salary = int(job["min_salary"])
 
-        return salary
+    return salary
 
 
 def validate_type(valor: Union[int, str]):
